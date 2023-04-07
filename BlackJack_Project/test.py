@@ -19,19 +19,30 @@ years = sunspots[0]
 spots = sunspots[3]
 marks = {i: '{}'.format(i) for i in range(years.min(), years.max(), 10)}
 
+deck = ['A', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+
 # create the app
 app = Dash(__name__)
 
 # define the layout
 app.layout = html.Div([
     html.H1(
-        children='Monitoring and Analyzing Sunspot Data',
+        children='Blackjack Strategy Dashboard',
         style={
             'textAlign': 'center',
-        }),
+            'background-image': 'url(https://pl.sterlingcdn.com/wp-content/uploads/sites/3/2018/07/blackjack-classic-background.jpg)',
+            ‘background-repeat’: ‘no-repeat’,
+‘background-position’: ‘right top’,
+‘background-size’: ‘150px 100px’
+            }),
     # Create the image and sunspot count figures, and put them side by side
     html.Img(src='https://soho.nascom.nasa.gov/data/realtime/hmi_igr/1024/latest.jpg', width='30%', height='30%',
-             style={'display': 'inline-block', 'margin-left': '75px', 'margin-bottom': '100px'}),
+             style={'display': 'inline-block', 'margin-center': '75px', 'margin-bottom': '100px'}),
+    dcc.Dropdown(id='dropdown',
+                 options=[{'label': 'Sunspot activity (monthly)', 'value': 'sunspot_graph'},
+                          {'label': 'Sunspot cycle', 'value': 'cycle_graph'}],
+                 value='sunspot_graph')
+
     dcc.Graph(id='sunspots_line',
               style={'width': '90vh', 'height': '90vh', 'display': 'inline-block', 'margin-left': '200px'}),
     html.H5(children='Time Range'),
