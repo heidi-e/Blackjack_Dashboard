@@ -10,6 +10,21 @@ import plotly.graph_objects as go
 from dash import Dash, dcc, html, Input, Output
 import pandas as pd
 
+
+"""app = dash.Dash(name)
+
+app.layout = html.Div(style={
+‘background-image’: ‘url(“diginex.png”)’,
+‘background-repeat’: ‘no-repeat’,
+‘background-position’: ‘right top’,
+‘background-size’: ‘150px 100px’
+},children = [
+html.H1(‘Hello World’),
+html.P(‘This image has an image in the background’)
+])
+
+app.run_server(port = 8059)"""
+
 # Read in the csv data
 sunspots = pd.read_csv('SN_m_tot_V2.0.csv', delimiter=';', header=None)
 
