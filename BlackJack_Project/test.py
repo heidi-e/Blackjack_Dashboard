@@ -10,7 +10,6 @@ import plotly.graph_objects as go
 from dash import Dash, dcc, html, Input, Output
 import pandas as pd
 
-
 """app = dash.Dash(name)
 
 app.layout = html.Div(style={
@@ -41,22 +40,27 @@ app = Dash(__name__)
 
 # define the layout
 app.layout = html.Div([
-    html.H1(
-        children='Blackjack Strategy Dashboard',
-        style={
-            'textAlign': 'center',
-            'background-image': 'url(https://pl.sterlingcdn.com/wp-content/uploads/sites/3/2018/07/blackjack-classic-background.jpg)',
-            ‘background-repeat’: ‘no-repeat’,
-‘background-position’: ‘right top’,
-‘background-size’: ‘150px 100px’
-            }),
+    html.H1(children = "Hello", style = {'textAlign': 'center', 'background-color': 'green'}),
+    html.Div(style={
+        'background-image': 'url(https://pl.sterlingcdn.com/wp-content/uploads/sites/3/2018/07/blackjack-classic-background.jpg)',
+        'background-repeat': 'no-repeat',
+        'background-position': 'center t',
+        'background-size': '1500px 900px'
+        },
+             children=[html.Img(src='https://soho.nascom.nasa.gov/data/realtime/hmi_igr/1024/latest.jpg', width='30%', height='30%',
+             style={'display': 'inline-block', 'margin-center': '175px', 'margin-bottom': '200px'})]
+             ),
     # Create the image and sunspot count figures, and put them side by side
-    html.Img(src='https://soho.nascom.nasa.gov/data/realtime/hmi_igr/1024/latest.jpg', width='30%', height='30%',
+
+
+])
+"""
+html.Img(src='https://soho.nascom.nasa.gov/data/realtime/hmi_igr/1024/latest.jpg', width='30%', height='30%',
              style={'display': 'inline-block', 'margin-center': '75px', 'margin-bottom': '100px'}),
     dcc.Dropdown(id='dropdown',
                  options=[{'label': 'Sunspot activity (monthly)', 'value': 'sunspot_graph'},
                           {'label': 'Sunspot cycle', 'value': 'cycle_graph'}],
-                 value='sunspot_graph')
+                 value='sunspot_graph'),
 
     dcc.Graph(id='sunspots_line',
               style={'width': '90vh', 'height': '90vh', 'display': 'inline-block', 'margin-left': '200px'}),
@@ -75,11 +79,9 @@ app.layout = html.Div([
     dcc.Slider(0, 12, 1, value=0, id='cycle_slider_month'),
     # add references at the bottom
     html.H6(children='Image Source: https://soho.nascom.nasa.gov/data/realtime/realtime-update.html'),
-    html.H6(children='Graph Data Source: https://www.sidc.be'),
+    html.H6(children='Graph Data Source: https://www.sidc.be'),"""
 
-])
-
-
+"""
 # define how the sunspot number graph reacts to the slider inputs
 @app.callback(
     Output('sunspots_line', 'figure'),
@@ -87,12 +89,12 @@ app.layout = html.Div([
     Input('rolling_window_slider', 'value')
 )
 def update_sunspots(slider_vals, rolling_window):
-    """
+    
     Updates the sunspot graph with the user inputs
     :param slider_vals: the user-defined time range for the graph
     :param rolling_window: the user-defined smoothness level for the rolling average
     :return: the updated figure
-    """
+    
     # compute the rolling average using the input
     rolling = spots.rolling(window=rolling_window).mean()
 
@@ -118,13 +120,13 @@ def update_sunspots(slider_vals, rolling_window):
     Input('cycle_slider_month', 'value')
 )
 def update_cycles(slider_val_year, slider_val_month, sunspots=sunspots):
-    """
+    
     Updates the cycle graph to the user inputs
     :param slider_val_year: the user-defined year to measure as the cycle
     :param slider_val_month: the user-defined month to measure as the cycle
     :param sunspots: passed original dataframe
     :return: the updated figure
-    """
+    
     # compute the modulo of the time period based on the user input
     cycle_year = (slider_val_year + (slider_val_month / 12))
     sunspots = sunspots.assign(overlayed_cycle=time % cycle_year)
@@ -140,7 +142,7 @@ def update_cycles(slider_val_year, slider_val_month, sunspots=sunspots):
 
     return fig
 
-
+"""
 def main():
     # run the dashboard
     app.run_server(debug=True)
