@@ -1,59 +1,69 @@
 """
-Conor Doyle
-ds3500
-HW 2
-02/10/2023
+Heidi Eren, Conor Doyle, Kelsey Nihezagirwe, Olivia Mintz
+DS3500
+Final project dashboard
+4/19/23
+
 """
 
 # import statements
 import plotly.graph_objects as go
 from dash import Dash, dcc, html, Input, Output
 import pandas as pd
+import dash
+from dash import html
+from dash import dcc
+from dash.dependencies import Output, Input
+import dash_bootstrap_components as dbc
 
-"""app = dash.Dash(name)
-
-app.layout = html.Div(style={
-‘background-image’: ‘url(“diginex.png”)’,
-‘background-repeat’: ‘no-repeat’,
-‘background-position’: ‘right top’,
-‘background-size’: ‘150px 100px’
-},children = [
-html.H1(‘Hello World’),
-html.P(‘This image has an image in the background’)
-])
-
-app.run_server(port = 8059)"""
-
-# Read in the csv data
-sunspots = pd.read_csv('SN_m_tot_V2.0.csv', delimiter=';', header=None)
-
-# set the rest of the universal variables
-time = sunspots[2]
-years = sunspots[0]
-spots = sunspots[3]
-marks = {i: '{}'.format(i) for i in range(years.min(), years.max(), 10)}
 
 deck = ['A', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
+
+# margin = position on the dashboard (up or down)
+
+
+
+
 
 # create the app
 app = Dash(__name__)
 
 # define the layout
 app.layout = html.Div([
-    html.H1(children = "Hello", style = {'textAlign': 'center', 'background-color': 'green'}),
-    html.Div(style={
+    html.H1(children = "Blackjack Strategy Dashboard", style = {'textAlign': 'center', 'background-color': 'green'}),
+    html.Div(
+        children=
+        html.Div([
+            html.Img(src='https://www.pngall.com/wp-content/uploads/4/Playing-Card-PNG-Clipart.png',
+                     style={'width': '10%', 'display':'inline-block', 'float':'left', 'borderRadius': '5px', 'margin': '20px', 'margin-left': '500px'}),
+            html.Img(src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/08_of_spades.svg/800px-08_of_spades.svg.png',
+                     style={'width': '10%', 'display':'inline-block', 'float':'right', 'borderRadius': '5px', 'margin': '20px', 'margin-right': '500px'})
+        ]),
+
+        style={
         'background-image': 'url(https://pl.sterlingcdn.com/wp-content/uploads/sites/3/2018/07/blackjack-classic-background.jpg)',
         'background-repeat': 'no-repeat',
         'background-position': 'center t',
-        'background-size': '1500px 900px'
+        'background-size': '1500px 900px',
+
         },
-             children=[html.Img(src='https://soho.nascom.nasa.gov/data/realtime/hmi_igr/1024/latest.jpg', width='30%', height='30%',
-             style={'display': 'inline-block', 'margin-center': '175px', 'margin-bottom': '200px', 'margin': {'l': 100, 'b': 200, 't': 100, 'r': 100}})]
-             ),
+    ),
+    html.Div(
+        children=
+        html.Div([
+            html.Img(src='https://www.pngall.com/wp-content/uploads/4/Playing-Card-PNG-Clipart.png',
+                     style={'width': '10%', 'display': 'inline-block', 'float': 'bottom-left', 'borderRadius': '5px',
+                            'margin': '180px', 'margin-left': '-160px'}),
+            html.Img(src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/08_of_spades.svg/800px-08_of_spades.svg.png',
+                     style={'width': '10%', 'display': 'inline-block', 'float': 'bottom-right', 'borderRadius': '5px',
+                            'margin': '180px', 'margin-left': '0px'})
+        ]),
+    )
+])
+
+
     # Create the image and sunspot count figures, and put them side by side
 
-
-])
 """
 html.Img(src='https://soho.nascom.nasa.gov/data/realtime/hmi_igr/1024/latest.jpg', width='30%', height='30%',
              style={'display': 'inline-block', 'margin-center': '75px', 'margin-bottom': '100px'}),
@@ -86,6 +96,7 @@ html.Img(src='https://soho.nascom.nasa.gov/data/realtime/hmi_igr/1024/latest.jpg
 @app.callback(
     Output('sunspots_line', 'figure'),
     Input('sunspot_window_slider', 'value'),
+    Input('dropdown', 'value'),
     Input('rolling_window_slider', 'value')
 )
 def update_sunspots(slider_vals, rolling_window):
