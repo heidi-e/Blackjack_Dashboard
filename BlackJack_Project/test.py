@@ -48,7 +48,7 @@ app.layout = html.Div([
         'background-size': '1500px 900px'
         },
              children=[html.Img(src='https://soho.nascom.nasa.gov/data/realtime/hmi_igr/1024/latest.jpg', width='30%', height='30%',
-             style={'display': 'inline-block', 'margin-center': '175px', 'margin-bottom': '200px'})]
+             style={'display': 'inline-block', 'margin-center': '175px', 'margin-bottom': '200px', 'margin': {'l': 100, 'b': 200, 't': 100, 'r': 100}})]
              ),
     # Create the image and sunspot count figures, and put them side by side
 
