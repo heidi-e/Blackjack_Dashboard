@@ -54,7 +54,9 @@ app.layout = html.Div(
             html.Img(src='https://opengameart.org/sites/default/files/card%20back%20red.png',
                      style={'width': '10%', 'display':'inline-block', 'float':'right', 'borderRadius': '5px', 'margin': '20px', 'margin-right': '500px'}),
             dcc.Dropdown(id = 'house-dropdown', options = new_deck, value = 'A',
-                         style = {'width': '20%','display':'inline-block', 'float':'left', 'margin': '0px', 'margin-left': '-70px'}),
+                         style = {'width': '20%','display':'inline-block', 'float':'left', 'margin': '0px', 'margin-left': '-60px'}),
+            dcc.RadioItems(id='house-suite', options=suite, value='hearts', inline=True,
+                           style = {'display':'inline-block', 'float':'left', 'margin': '45px', 'margin-left': '-420px'})
         ]),
     ),
     html.Div(id='user',
@@ -66,12 +68,22 @@ app.layout = html.Div(
             html.Img(src='https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/08_of_spades.svg/800px-08_of_spades.svg.png',
                      style={'width': '10%', 'display': 'inline-block', 'float': 'bottom-right', 'borderRadius': '5px',
                             'margin': '140px', 'margin-left': '30px'}),
+
+            # user hand card on the left
             dcc.Dropdown(id='user-dropdown-1', options= new_deck, value='A',
                          style={'width': '20%', 'display': 'inline-block', 'float': 'left', 'margin': '-70px',
-                                'margin-left': '270px'}),
+                                'margin-left': '270px'}, optionHeight=30),
+            dcc.RadioItems(id='user-suite-1', options=suite, value='hearts', inline=True,
+                           style={'display': 'inline-block', 'float': 'left', 'margin': '-90px',
+                                  'margin-left': '460px'}),
+
+            # user hand card on the right
             dcc.Dropdown(id='user-dropdown-2', options= new_deck, value='A',
                          style={'width': '20%', 'display': 'inline-block', 'float': 'left', 'margin': '-70px',
-                                'margin-left': '430px'}),
+                                'margin-left': '435px'}, optionHeight=30),
+            dcc.RadioItems(id='user-suite-2', options=suite, value='hearts', inline=True,
+                           style={'display': 'inline-block', 'float': 'left', 'margin': '-90px',
+                                  'margin-left': '790px'})
         ]),
     )
 ])
@@ -80,7 +92,8 @@ app.layout = html.Div(
     Output('house', 'children'),
     Input('house-dropdown', 'value'),
     Input('user-dropdown-1', 'value'),
-    Input('user-dropdown-2', 'value')
+    Input('user-dropdown-2', 'value'),
+    Input('house-suite', 'value')
 )
 
 
