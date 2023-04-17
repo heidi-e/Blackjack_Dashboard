@@ -1,3 +1,33 @@
+"""
+Code will sum the cards unless
+
+If one is an Ace -> lookup "AOther_Value"
+ string + string
+
+If the same card, attach them together but don't add them
+
+Change 10's to T's
+If user has a 10 card then change it to a T
+
+If user gets A + T then print user wins no action needed
+
+
+"""
+"""
+def funciton:
+    one_card = 10
+    two_card = 5
+
+    if ace:
+        
+    elif same_card:
+    
+    elif:
+        lookup(one_card+two_card, house_upcard)"""
+
+
+
+
 def basic_strategy(player_total, dealer_value, soft):
     """ This is a simple implementation of Blackjack's
         basic strategy. It is used to recommend actions
