@@ -9,58 +9,46 @@ def blackjack_objective(hand):
     else:
         return -abs(value - 21)
 
+
 def random_agent(hand):
     action = rnd.choice(['hit', 'stand'])
     if action == 'hit':
         hand.append(rnd.randint(1, 10))
     return hand
 
-def simple_strategy_agent(player_hand, dealer_upcard):
-    player_total = sum(player_hand)
-    if player_total >= 17:
-        return "stand"
-    if player_total <= 11:
-        return "hit"
-    if player_total == 12:
-        if dealer_upcard in [4, 5, 6]:
-            return "stand"
-        else:
-            return "hit"
-    if player_total in [13, 14, 15, 16]:
-        if dealer_upcard in [2, 3, 4, 5, 6]:
-            return "stand"
-        else:
-            return "hit"
-    return "stand"
+def simple_strategy_agent(hand, dealer_upcard):
+    value = sum(hand)
+    if value >= 17:
+        return hand  # stand if value is 17 or higher
+    elif value <= 11:
+        hand.append(10)  # hit if value is 11 or lower
+    elif dealer_upcard >= 7:
+        hand.append(rnd.randint(1, 3))  # hit with 1/3 probability if dealer's upcard is 7 or higher
+    else:
+        hand.append(rnd.randint(1, 4))  # hit with 1/4 probability if dealer's upcard is 6 or lower
+    return hand
 
-def run_blackjack_evo():
-    # Set up the Evo framework
-    evo = Evo()
-    evo.add_fitness_criteria("win_pct", blackjack_objective())
-    evo.add_agent("simple_strategy_agent", simple_strategy_agent, k=2)
 
-    # Initialize the population with random solutions
-    for i in range(100):
-        evo.add_solution(random_agent())
 
-    # Run the evolution process
-    evo.evolve(n=1000, dom=50, status=50)
-
-    # Get the best solution and its fitness score
-    best_solution, best_score = max(evo.pop.items(), key=lambda x: x[0][1])
-
-    # Print the best solution and its fitness score
-    print("Best Solution:")
-    print(best_solution)
-    print("Fitness Score:")
-    print(best_score[1])
-
-# Run the blackjack evolution process
-run_blackjack_evo()
 
 
 def main():
-    run_blackjack_evo()
+    blackjack_evo = Evo()
+
+    # add objective function
+    blackjack_evo.add_fitness_criteria('blackjack', blackjack_objective)
+
+    # add agents
+    blackjack_evo.add_agent('random', random_agent, k=1)
+    blackjack_evo.add_agent('simple', simple_strategy_agent, k=2)
+
+    # run the optimization for 10000 iterations
+    blackjack_evo.evolve(n=10000, dom=100, status=1000)
+
+    # print the best solution
+    best_solution = max(blackjack_evo.pop, key=lambda x: x[1]['blackjack'])
+    print("Best solution:", best_solution[0], "with objective value:", best_solution[1]['blackjack'])
+
 
 if __name__ == "__main__":
     main()
