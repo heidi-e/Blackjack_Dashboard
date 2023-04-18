@@ -6,10 +6,9 @@ Final project dashboard
 
 """
 
-import plotly.graph_objects as go
+# card image source: https://code.google.com/archive/p/vector-playing-cards/
+
 from dash import Dash, dcc, html, Input, Output
-import pandas as pd
-import dash
 from dash import html
 from dash import dcc
 from dash.dependencies import Output, Input
