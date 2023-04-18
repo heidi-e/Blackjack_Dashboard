@@ -27,28 +27,30 @@ class Hand():
         self.cards = [] # holds the individual cards of the player (ex: A through K)
         self.card_val1 = card_val1 # string value of the first card
         self.card_val2 = card_val2 # string value of the second card
-        self.user_hand = [] # holds the integer value of the cards in the user's hand
+        self.user_hand = [card_val1, card_val2] # holds the integer value of the cards in the user's hand
 
     def if_ace_present(self):
         """
         if the hand of the player is an Ace, concatenate the cards together
         """
         if self.card_val1 == 'A':
-            self.cards.append(self.card_val1)
-            self.cards.append(self.card_val2)
-            ace_value = CARD_VALUES['A']
+            self.user_hand[0] = self.card_val1
+            self.user_hand[1] = self.card_val2
+            """ace_value = CARD_VALUES['A']
             self.user_hand.append(ace_value + CARD_VALUES[self.card_val2])
-            self.user_hand[0] = str(self.cards[0]) + str(self.cards[1])
+            self.user_hand[0] = str(self.cards[0]) + str(self.cards[1])"""
         elif self.card_val2 == 'A':
-            self.cards.append(self.card_val2)
-            self.cards.append(self.card_val1)
-            ace_value = CARD_VALUES['A']
+            self.user_hand[0] = self.card_val2
+            self.user_hand[1] = self.card_val1
+            """ace_value = CARD_VALUES['A']
             self.user_hand.append(ace_value + CARD_VALUES[self.card_val1])
-            self.user_hand[0] = str(self.cards[0]) + str(self.cards[1])
+            self.user_hand[0] = str(self.cards[0]) + str(self.cards[1])"""
         else:
             self.cards.append(self.card_val1)
             self.cards.append(self.card_val2)
             self.user_hand.append(CARD_VALUES[self.card_val1] + CARD_VALUES[self.card_val2])
+
+        #self.check_blackjack()
 
         return ''.join(map(str, self.user_hand))
 
@@ -63,9 +65,9 @@ class Hand():
         face_cards = ['10', 'J', 'Q', 'K']
         card_vals = [self.card_val1, self.card_val2]
 
-        if card_vals[0] == card_vals[1]:
+        """if card_vals[0] == card_vals[1]:
             self.duplicate_cards()
-            #return self.user_hand
+            #return self.user_hand"""
 
         for i in range(2):
             if card_vals[i] in face_cards:
@@ -73,15 +75,14 @@ class Hand():
 
         self.user_hand = ''.join(card_vals) # somehow this outputs a much prettier string without the brackets
 
-        return self.user_hand
+        #return self.user_hand
 
-    def duplicate_cards(self):
+    """def duplicate_cards(self):
         """
-        if the player's cards are the same, put them together
+        #if the player's cards are the same, put them together
 
         """
-        self.user_hand = self.card_val1 + self.card_val2
-        return self.user_hand
+        self.user_hand = self.card_val1 + self.card_val2"""
 
     def blackjack(self):
         """
@@ -111,7 +112,8 @@ class Hand():
         one only returns an empty set)
 
         """
-        row = optimal_solution[optimal_solution["value"] == str(self.calculate_score())]
+        user_value = ''.join(self.user_hand)
+        row = optimal_solution[optimal_solution["value"] == user_value]
         action = row[house_upcard]
         return action
 
@@ -119,6 +121,24 @@ class Hand():
 def main():
 
     hand = Hand("8", "9")
+
+
+    # run 10 before ace_one, because the ace_one uses the 10
+    if ace_one:
+        #blackjack()
+
+    elif
+
+    else:
+        calculate_score()
+
+    # any duplicate cards will be left as [card_1, card_2]
+
+
+
+    #get_action()      this just combines the list in user_hand
+
+
     score = hand.calculate_score()
     print(score)
 
