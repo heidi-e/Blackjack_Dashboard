@@ -40,7 +40,7 @@ def main():
 
     # add agents
     blackjack_evo.add_agent('random', random_agent, k=1)
-    blackjack_evo.add_agent('simple', simple_strategy_agent, k=2)
+    blackjack_evo.add_agent('simple', simple_strategy_agent(), k=2)
 
     # run the optimization for 10000 iterations
     blackjack_evo.evolve(n=10000, dom=100, status=1000)

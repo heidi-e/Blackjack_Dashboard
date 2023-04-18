@@ -1,82 +1,149 @@
 """
-Code will sum the cards unless
 
-If one is an Ace -> lookup "AOther_Value"
- string + string
-
-If the same card, attach them together but don't add them
-
-Change 10's to T's
-If user has a 10 card then change it to a T
-
-If user gets A + T then print user wins no action needed
-
+this file is where we're implementing the actual project helper strategy
 
 """
-"""
-def funciton:
-    one_card = 10
-    two_card = 5
-
-    if ace:
-        
-    elif same_card:
-    
-    elif:
-        lookup(one_card+two_card, house_upcard)"""
 
 import pandas as pd
 
 optimal_solution = pd.read_csv("BlackJack_Optimal_Solution.csv")
-
+"""
 print(optimal_solution)
 row = optimal_solution[optimal_solution["value"] == '13']
 print(row["7"])
 
+"""
 
-def if_ace_present():
-    """
-    if the hand of the player is an Ace, concatenate the cards together
-    """
-    pass
-
-def value_ten_cards():
-    """
-    whenever a face card is pulled, change the value to ten and make it into a T
-    # if they are dupplicates do sumthing
-
-    if they are not do something else
-
-    """
-    pass
+# sample card inputs you would input the user inputs and those should work, (I havent implemented face cards as T)
+# update: I have done it
+# Aother_value is supposed to be used for when you can use A as either 11 or 1
+CARD_VALUES = {'A': 11, "AOther_Value": 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, '10': 10,
+               'J': 10, 'Q': 10, 'K': 10}
 
 
-def duplicate_cards():
-    """
-    if the player's cards are the same, put them together
+class Hand():
+
+    def __init__(self, card_val1, card_val2):
+        self.cards = [] # holds the individual cards of the player (ex: A through K)
+        self.card_val1 = card_val1 # string value of the first card
+        self.card_val2 = card_val2 # string value of the second card
+        self.user_hand = [] # holds the integer value of the cards in the user's hand
+
+    def if_ace_present(self):
+        """
+        if the hand of the player is an Ace, concatenate the cards together
+        """
+        if self.card_val1 == 'A':
+            self.cards.append(self.card_val1)
+            self.cards.append(self.card_val2)
+            ace_value = CARD_VALUES['A']
+            self.user_hand.append(ace_value + CARD_VALUES[self.card_val2])
+            self.user_hand[0] = str(self.cards[0]) + str(self.cards[1])
+        elif self.card_val2 == 'A':
+            self.cards.append(self.card_val2)
+            self.cards.append(self.card_val1)
+            ace_value = CARD_VALUES['A']
+            self.user_hand.append(ace_value + CARD_VALUES[self.card_val1])
+            self.user_hand[0] = str(self.cards[0]) + str(self.cards[1])
+        else:
+            self.cards.append(self.card_val1)
+            self.cards.append(self.card_val2)
+            self.user_hand.append(CARD_VALUES[self.card_val1] + CARD_VALUES[self.card_val2])
+
+        return ''.join(map(str, self.user_hand))
+
+    def value_ten_cards(self):
+        """
+        whenever a face card is pulled, change the value to ten and make it into a T
+        # if the face cards are duplicates use the duplicate function
+
+        if they are not do original task of making them T in our user hand with a value often
+
+        """
+        face_cards = ['10', 'J', 'Q', 'K']
+        card_vals = [self.card_val1, self.card_val2]
+
+        if card_vals[0] == card_vals[1]:
+            self.duplicate_cards()
+            #return self.user_hand
+
+        for i in range(2):
+            if card_vals[i] in face_cards:
+                card_vals[i] = 'T'
+
+        self.user_hand = ''.join(card_vals) # somehow this outputs a much prettier string without the brackets
+
+        return self.user_hand
+
+    def duplicate_cards(self):
+        """
+        if the player's cards are the same, put them together
+
+        """
+        self.user_hand = self.card_val1 + self.card_val2
+        return self.user_hand
+
+    def blackjack(self):
+        """
+        if the player wins the game by getting 21 (I don't really think we need to keep this one but... u got it :)
+
+        """
 
 
-    :return:
-    """
-    pass
+        pass
+
+    def calculate_score(self):
+        """
+        calculates the sum of the player's hand (doesn't work yet it only outputs zero when I run it you can edit it)
+        """
+        total = 0
+        for val in self.user_hand:
+            if len(val) == 0:
+                total += CARD_VALUES[val[1]]
+            else:
+                total += CARD_VALUES[val]
+
+        return total
+
+    def get_action(self, house_upcard):
+        """
+        gets the action to take based on the player's hand and the house's upcard (this doesnt work
+        one only returns an empty set)
+
+        """
+        row = optimal_solution[optimal_solution["value"] == str(self.calculate_score())]
+        action = row[house_upcard]
+        return action
 
 
-def blackjack():
-    """
-    if the player wins the game by getting 21
+def main():
 
-    """
-    pass
+    hand = Hand("8", "9")
+    score = hand.calculate_score()
+    print(score)
 
-def calculate_score(hand):
-    """
-    calculates the sum of the player's hand
-    """
-    pass
+    #hand1 = Hand("8", "9")
+    #c = hand1.get_action("A")
+    #print(c)
+
+    hand = Hand("8", "9")
+    hand.if_ace_present()
+
+    hand = Hand("8", "9")
+    hand.duplicate_cards()
+
+    hand = Hand("8", "9")
+    hand.blackjack()
+
+    hand = Hand("8", "9")
+    score = hand.calculate_score()
+    print(score)
+    #action = hand.get_action("A")
+    #print(f"The player's hand has a value of {score} and should {action}")
 
 
-def get_action():
-    """
 
-    :return:
-    """
+
+
+if __name__=="__main__":
+    main()

@@ -7,7 +7,7 @@ DEALER_HIT_THRESHOLD = 17
 # Define the parameters of the genetic algorithm
 POPULATION_SIZE = 100
 MUTATION_RATE = 0.01
-GENERATIONS = 100
+GENERATIONS = 20
 
 # Define the initial population of candidate strategies
 def generate_population():
@@ -115,5 +115,17 @@ def evolve():
     print("Best strategy found:")
     print(best_strategy)
     print("Fitness:", evaluate_fitness(best_strategy))
+
+
+def main():
+
+
+
+    evolve()
+
+
+
+if __name__=="__main__":
+    main()
 
 
