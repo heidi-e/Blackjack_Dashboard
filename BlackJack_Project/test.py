@@ -37,6 +37,7 @@ new_deck = [{'label': 'A', 'value': 'ace'},
 # margin = position on the dashboard (up or down)
 # margin-left = position left or right
 
+background = 'https://media.istockphoto.com/photos/green-abstract-glass-texture-background-or-pattern-creative-design-picture-id680008334?k=20&m=680008334&s=612x612&w=0&h=P5O3WExGj_3FZyh84I_wfpmNnECNQvy_r_8sBvEjt4M='
 # create the app
 app = Dash(__name__)
 
@@ -44,12 +45,12 @@ app = Dash(__name__)
 app.layout = html.Div(
     style={
         # set background image
-        'background-image': 'url(https://pl.sterlingcdn.com/wp-content/uploads/sites/3/2018/07/blackjack-classic-background.jpg)',
+        'background-image': f'url({background})',
         'background-repeat': 'no-repeat',
         'background-position': 'center t',
         'background-size': '1500px 900px'},
     children=[
-    html.H1(children = "Blackjack Strategy Dashboard", style = {'textAlign': 'center', 'background-color': 'green'}),
+    html.H1(children = "Blackjack Strategy Dashboard", style = {'textAlign': 'center', 'background-color': 'white'}),
     html.Div(children=
         html.Div([
             # house's hands
@@ -60,7 +61,16 @@ app.layout = html.Div(
             dcc.Dropdown(id = 'house-dropdown', options = new_deck, value = '3',
                          style = {'width': '20%','display':'inline-block', 'float':'left', 'margin': '-25px', 'margin-left': '-80px'}),
             dcc.RadioItems(id='house-suit', options=suit, value='spades', inline=True,
-                           style = {'display':'inline-block', 'float':'left', 'margin': '0px', 'margin-left': '-260px'})
+                           style = {'display':'inline-block', 'float':'left', 'margin': '0px', 'margin-left': '-260px'}),
+
+            dcc.Markdown('''
+            ## Welcome!
+            ## How to play:
+            * Click to use dropdown feature to input card values
+            * Select suit to input card suits
+            * The top row is the **house's** hands
+            * The bottom row is **your** hands
+            ''', style = {'float':'left', 'margin': '-280px', 'margin-left': '-650px'}),
         ]),
     ),
     html.Div(children=
@@ -126,6 +136,16 @@ def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user
     user_card_1_path = f"assets/{user_card_1}"
     user_card_2_path = f"assets/{user_card_2}"
     return house_card_path, user_card_1_path, user_card_2_path
+
+
+def use_helper(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user_2_suit):
+    """ update card images based on user input values
+    :param house_val (int): the house card value
+    :param house_suit (str): the house card suit
+    :param user_1_val, user_2_val (int): the user card value
+    :param user_1_suit, user_2_suit (str): the user card suit
+    """
+    pass
 
 
 def main():
