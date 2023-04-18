@@ -63,12 +63,13 @@ app.layout = html.Div(
 
             dcc.Markdown('''
             ## Welcome!
+            #### (please use FULL SCREEN browser for optimal playing)
             ## How to play:
-            * Click to use dropdown feature to input card values
+            * Click to use dropdown feature to select card values
             * Select suit to input card suits
             * The top row is the **house's** hands
             * The bottom row is **your** hands
-            ''', style = {'float':'left', 'margin': '-280px', 'margin-left': '-650px'}),
+            ''', style = {'float':'left', 'margin': '-280px', 'margin-left': '-690px', 'background-color': 'white'}),
         ]),
     ),
     html.Div(children=
