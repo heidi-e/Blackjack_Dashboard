@@ -71,23 +71,23 @@ app.layout = html.Div(
                             'margin': '100px', 'margin-left': '-200px'}),
             html.Img(id='user-2', src='assets/8_of_hearts.png',
                      style={'width': '10%', 'display': 'inline-block', 'float': 'bottom-right', 'borderRadius': '5px',
-                            'margin': '100px', 'margin-left': '40px'}),
+                            'margin': '100px', 'margin-left': '-120px'}),
 
             # user card on the left
             dcc.Dropdown(id='user-dropdown-1', options= new_deck, value='4',
-                         style={'width': '20%', 'display': 'inline-block', 'float': 'left', 'margin': '20px',
-                                'margin-left': '200px'}, optionHeight=30),
+                         style={'width': '20%', 'display': 'inline-block', 'float': 'left', 'margin': '60px',
+                                'margin-left': '-170px'}),
             dcc.RadioItems(id='user-suit-1', options=suit, value='clubs', inline=True,
                            style={'display': 'inline-block', 'float': 'left', 'margin': '-90px',
                                   'margin-left': '460px'}),
 
             # user card on the right
             dcc.Dropdown(id='user-dropdown-2', options= new_deck, value='8',
-                         style={'width': '20%', 'display': 'inline-block', 'float': 'left', 'margin': '-70px',
-                                'margin-left': '420px'}, optionHeight=30),
+                         style={'width': '20%', 'display': 'inline-block', 'float': 'left', 'margin': '-150px',
+                                'margin-left': '500px'}),
             dcc.RadioItems(id='user-suit-2', options=suit, value='hearts', inline=True,
                            style={'display': 'inline-block', 'float': 'left', 'margin': '-90px',
-                                  'margin-left': '790px'})
+                                  'margin-left': '800px'})
         ]),
     )
 ])
