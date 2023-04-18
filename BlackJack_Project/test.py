@@ -84,7 +84,7 @@ app.layout = html.Div(
             # user card on the right
             dcc.Dropdown(id='user-dropdown-2', options= new_deck, value='8',
                          style={'width': '20%', 'display': 'inline-block', 'float': 'left', 'margin': '-150px',
-                                'margin-left': '500px'}),
+                                'margin-left': '500px'}, maxHeight=100),
             dcc.RadioItems(id='user-suit-2', options=suit, value='hearts', inline=True,
                            style={'display': 'inline-block', 'float': 'left', 'margin': '-90px',
                                   'margin-left': '800px'})
