@@ -108,7 +108,20 @@ class Hand():
         if len(self.final_hand) == 0:
             self.final_hand = [str(int(self.card_val1) + int(self.card_val2))]
 
-    def
+    def change_recommended(self, output):
+        """
+        changes the outputted strategy from the optimal_solution to something more user friendly
+        """
+
+        if output == "S":
+            return "Stand"
+        elif output == "H":
+            return "Hit"
+        elif output == "D":
+            return "Double-Down"
+        elif output == "P":
+            return "Split"
+
 
     def get_action(self, house_upcard):
         """
@@ -120,8 +133,19 @@ class Hand():
 
         #user_value = ''.join(self.final_hand)
         row = optimal_solution[optimal_solution["value"] == self.final_hand[0]]
-        action = row[house_upcard]
-        return action
+        action = row[self.change_housecard(house_upcard)]
+        return self.change_recommended(action.iloc[0])
+        #return self.change_recommended(action)
+
+    def change_housecard(self, house_upcard):
+        """
+        change the upcard to be compatible with our solution
+        """
+        face_cards = ["10","jack","queen","king"]
+        if house_upcard in face_cards:
+            return "T"
+
+        return house_upcard
 
 
 def main():
