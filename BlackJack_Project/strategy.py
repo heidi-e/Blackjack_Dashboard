@@ -83,7 +83,7 @@ class Hand():
         """
         calculates the sum of the player's hand if we still don't have a final hand
         """
-        # if the final_hand is empty, calcuate the hand value
+        # if the final_hand is empty, calculate the hand value
         if len(self.final_hand) == 0:
             self.final_hand = [str(int(self.card_val1) + int(self.card_val2))]
 

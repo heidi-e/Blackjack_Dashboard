@@ -33,10 +33,9 @@ new_deck = [{'label': 'A', 'value': 'ace'},
         {'label': 'Q', 'value': 'queen'},
         {'label': 'K', 'value': 'king'}]
 
-# margin = position on the dashboard (up or down)
-# margin-left = position left or right
 
 background = 'https://media.istockphoto.com/photos/green-abstract-glass-texture-background-or-pattern-creative-design-picture-id680008334?k=20&m=680008334&s=612x612&w=0&h=P5O3WExGj_3FZyh84I_wfpmNnECNQvy_r_8sBvEjt4M='
+
 # create the app
 app = Dash(__name__)
 
@@ -140,7 +139,7 @@ def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user
     user_card_1_path = f"assets/{user_card_1}"
     user_card_2_path = f"assets/{user_card_2}"
 
-
+    # fix output of ace cards
     if house_val == 'ace':
         house_val = 'A'
 
@@ -150,8 +149,10 @@ def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user
     if user_2_val == 'ace':
         user_2_val = 'A'
 
+    # determine user's hands
     hand = Hand(user_1_val, user_2_val)
 
+    # run optimal solution
     helper = hand.get_action(house_val)
 
     return house_card_path, user_card_1_path, user_card_2_path, ' Your next play should be **{}** '.format(helper)
