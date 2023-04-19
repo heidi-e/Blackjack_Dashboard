@@ -134,19 +134,3 @@ class Hand():
         return house_upcard
 
 
-"""def main():
-
-    hand = Hand("jack", "10")
-
-
-
-    #final = hand.get_action("3")
-
-    print(hand.final_hand)
-
-
-
-
-
-if __name__=="__main__":
-    main()"""
