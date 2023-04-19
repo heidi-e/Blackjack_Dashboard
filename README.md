@@ -1,5 +1,5 @@
 # BlackJack Strategy Dashboard
-**please use FULL SCREEN web browser**
+###please use FULL SCREEN web browser
 This is our final project for DS3500 that features the game of blackjack on a Plotly Dashboard, and utilizes the B.O.S.S. (Blackjack Optimal Solution Suggestor) to suggest the next best move the player should play based on the House's hands and the player's hands. 
 
 ## Installation
