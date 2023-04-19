@@ -13,6 +13,7 @@ from dash import html
 from dash import dcc
 from dash.dependencies import Output, Input
 
+from strategy import Hand
 
 # button features
 suit = ['hearts', 'clubs', 'spades', 'diamonds']
@@ -97,6 +98,8 @@ app.layout = html.Div(
             dcc.RadioItems(id='user-suit-2', options=suit, value='hearts', inline=True,
                            style={'display': 'inline-block', 'float': 'left', 'margin': '-90px',
                                   'margin-left': '800px'}),
+            dcc.Markdown(id='helper-text',
+                         style = {'float':'left', 'margin': '-680px', 'margin-left': '1100px', 'background-color': 'white'})
             ]),
     )
 ])
@@ -105,6 +108,7 @@ app.layout = html.Div(
     Output('house', 'src'),
     Output('user-1', 'src'),
     Output('user-2', 'src'),
+    Output('helper-text', 'children'),
 
     Input('house-dropdown', 'value'),
     Input('house-suit', 'value'),
@@ -114,6 +118,7 @@ app.layout = html.Div(
 
     Input('user-dropdown-2', 'value'),
     Input('user-suit-2', 'value'),
+
 
 )
 
@@ -134,25 +139,22 @@ def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user
     house_card_path = f"assets/{house_card}"
     user_card_1_path = f"assets/{user_card_1}"
     user_card_2_path = f"assets/{user_card_2}"
-    return house_card_path, user_card_1_path, user_card_2_path
 
-
-def use_helper(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user_2_suit):
-    """ update card images based on user input values
-    :param house_val (int): the house card value
-    :param house_suit (str): the house card suit
-    :param user_1_val, user_2_val (int): the user card value
-    :param user_1_suit, user_2_suit (str): the user card suit
-    """
 
     if house_val == 'ace':
-        house_val == 'A'
+        house_val = 'A'
 
     if user_1_val == 'ace':
-        user_1_val == 'A'
+        user_1_val = 'A'
 
     if user_2_val == 'ace':
-        user_2_val == 'A'
+        user_2_val = 'A'
+
+    hand = Hand(user_1_val, user_2_val)
+
+    helper = hand.get_action(house_val)
+
+    return house_card_path, user_card_1_path, user_card_2_path, ' Your next play should be **{}** '.format(helper)
 
 
 

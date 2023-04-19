@@ -126,44 +126,11 @@ class Hand():
 
 def main():
 
-    hand = Hand("T", "T")
+    hand = Hand("4", "8")
 
-    print(hand.get_action("5"))
+    final = hand.get_action("3")
 
-    print(hand.final_hand)
-
-
-
-    # run 10 before ace_one, because the ace_one uses the 10
-
-    # any duplicate cards will be left as [card_1, card_2]
-
-
-
-    #get_action()      this just combines the list in user_hand
-
-
-    """  score = hand.calculate_score()
-    print(score)"""
-
-    #hand1 = Hand("8", "9")
-    #c = hand1.get_action("A")
-    #print(c)
-
-    """hand = Hand("8", "9")
-    hand.if_ace_present()
-
-    hand = Hand("8", "9")
-    hand.duplicate_cards()
-
-    hand = Hand("8", "9")
-    hand.blackjack()
-
-    hand = Hand("8", "9")
-    score = hand.calculate_score()
-    print(score)"""
-    #action = hand.get_action("A")
-    #print(f"The player's hand has a value of {score} and should {action}")
+    print(final)
 
 
 
