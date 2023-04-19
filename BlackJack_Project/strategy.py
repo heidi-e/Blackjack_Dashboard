@@ -1,4 +1,8 @@
 """
+Heidi Eren, Conor Doyle, Kelsey Nihezagirwe, Olivia Mintz
+DS3500
+Final project dashboard - optimal solutions
+4/19/23
 
 this file is where we're implementing the actual project helper strategy
 
