@@ -70,7 +70,13 @@ app.layout = html.Div(
             * The top row is the **house's** hands
             * The bottom row is **your** hands
             ''', style = {'float':'left', 'margin': '-280px', 'margin-left': '-690px', 'background-color': 'white'}),
-        ]),
+            dcc.Markdown('''
+            ## Rules
+            * Sum as close to 21 as possible, without going over
+            * Ace is worth 1 or 11
+            * Face cards are 10
+            ''', style = {'float':'left', 'margin': '100px', 'margin-left': '-690px', 'background-color': 'white'}),
+            ]),
     ),
     html.Div(children=
         html.Div([
@@ -98,8 +104,18 @@ app.layout = html.Div(
                            style={'display': 'inline-block', 'float': 'left', 'margin': '-90px',
                                   'margin-left': '800px'}),
             dcc.Markdown(id='helper-text',
-                         style = {'float':'left', 'margin': '-680px', 'margin-left': '1100px', 'background-color': 'white'})
-            ]),
+                         style = {'float':'left', 'margin': '-680px', 'margin-left': '1100px', 'background-color': 'white'}),
+            dcc.Markdown('''
+                        ## B.O.S.S. Guide
+                        * Stand = not ask for card
+                        * Hit = ask for card
+                        * Split = separate two hands
+                        * Double-down = double your bet
+                        * Pair = bet for first two cards dealt being a pair 
+                        ''', style={'float': 'right', 'margin': '-500px', 'margin-right': '80px',
+                                    'background-color': 'white'})
+
+        ]),
     )
 ])
 
