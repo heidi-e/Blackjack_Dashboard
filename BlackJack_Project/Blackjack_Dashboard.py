@@ -8,7 +8,7 @@ Final project dashboard
 
 # card image source: https://code.google.com/archive/p/vector-playing-cards/
 
-from dash import Dash, dcc, html, Input, Output
+from dash import Dash, dcc, html, Input, Output, ctx
 from dash import html
 from dash import dcc
 from dash.dependencies import Output, Input
@@ -69,13 +69,12 @@ app.layout = html.Div(
             * Select suit to input card suits
             * The top row is the **house's** hands
             * The bottom row is **your** hands
+            #### Click on the buttons below for more help.
             ''', style = {'float':'left', 'margin': '-280px', 'margin-left': '-690px', 'background-color': 'white'}),
-            dcc.Markdown('''
-            ## Rules
-            * Sum as close to 21 as possible, without going over
-            * Ace is worth 1 or 11
-            * Face cards are 10
-            ''', style = {'float':'left', 'margin': '100px', 'margin-left': '-690px', 'background-color': 'white'}),
+            dcc.Markdown(id='rules-text',
+                         style = {'float':'left', 'margin': '100px', 'margin-left': '-690px', 'background-color': 'white', 'width': '200px'}),
+            html.Button('Rules', id='rules-button', n_clicks=0,
+                        style = {'float':'left', 'margin': '100px', 'margin-left': '-690px'})
             ]),
     ),
     html.Div(children=
@@ -105,15 +104,10 @@ app.layout = html.Div(
                                   'margin-left': '800px'}),
             dcc.Markdown(id='helper-text',
                          style = {'float':'left', 'margin': '-680px', 'margin-left': '1100px', 'background-color': 'white'}),
-            dcc.Markdown('''
-                        ## B.O.S.S. Guide
-                        * Stand = not ask for card
-                        * Hit = ask for card
-                        * Split = separate two hands
-                        * Double-down = double your bet
-                        * Pair = bet for first two cards dealt being a pair 
-                        ''', style={'float': 'right', 'margin': '-500px', 'margin-right': '80px',
-                                    'background-color': 'white'})
+            dcc.Markdown(id='helper-guide-text', style={'float': 'left', 'margin': '-180px', 'margin-left': '16px',
+                                    'background-color': 'white'}),
+            html.Button('Helper', id='helper-button', n_clicks=0,
+                        style = {'float':'left', 'margin': '-180px', 'margin-left': '16px'})
 
         ]),
     )
@@ -124,6 +118,8 @@ app.layout = html.Div(
     Output('user-1', 'src'),
     Output('user-2', 'src'),
     Output('helper-text', 'children'),
+    Output('rules-text', 'children'),
+    Output('helper-guide-text', 'children'),
 
     Input('house-dropdown', 'value'),
     Input('house-suit', 'value'),
@@ -134,10 +130,13 @@ app.layout = html.Div(
     Input('user-dropdown-2', 'value'),
     Input('user-suit-2', 'value'),
 
+    Input('rules-button', 'n_clicks'),
+    Input('helper-button', 'n_clicks')
+
 
 )
 
-def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user_2_suit):
+def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user_2_suit, n_click_1, n_click_2):
     """ update card images based on user input values
     :param house_val (int): the house card value
     :param house_suit (str): the house card suit
@@ -171,7 +170,25 @@ def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user
     # run optimal solution
     helper = hand.get_action(house_val)
 
-    return house_card_path, user_card_1_path, user_card_2_path, ' Your next play should be **{}** '.format(helper)
+    if n_click_1 % 2 > 0:
+        msg_1 = '#### Sum as close to 21 as possible, without going over. ' \
+              'Ace is worth 1 or 11. ' \
+              'Face cards are 10.'
+        return house_card_path, user_card_1_path, user_card_2_path, ' Your next play should be **{}** '.format(helper), msg_1, ''
+    elif n_click_2 % 2 > 0:
+
+        msg_3 = ''' #### BOSS Guide
+                    * Stand = not ask for card
+                    * Hit = ask for card
+                    * Split = separate two hands
+                    * Double-down = double your bet
+                    * Pair = bet for first two cards dealt being a pair
+                '''
+
+        return house_card_path, user_card_1_path, user_card_2_path, ' Your next play should be **{}** '.format(helper), '', msg_3
+    else:
+        return house_card_path, user_card_1_path, user_card_2_path, ' Your next play should be **{}** '.format(helper), '', ''
+
 
 
 
