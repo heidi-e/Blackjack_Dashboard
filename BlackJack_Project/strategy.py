@@ -131,6 +131,9 @@ class Hand():
         """
         # if blackjack, don't lookup and return the action
 
+        if self.final_hand == ["You Have Blackjack!"]:
+            return "You Have Blackjack!"
+
         #user_value = ''.join(self.final_hand)
         row = optimal_solution[optimal_solution["value"] == self.final_hand[0]]
         action = row[self.change_housecard(house_upcard)]
