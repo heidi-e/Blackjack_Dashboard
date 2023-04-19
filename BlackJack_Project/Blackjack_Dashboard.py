@@ -96,8 +96,8 @@ app.layout = html.Div(
                                 'margin-left': '500px'}, maxHeight=100),
             dcc.RadioItems(id='user-suit-2', options=suit, value='hearts', inline=True,
                            style={'display': 'inline-block', 'float': 'left', 'margin': '-90px',
-                                  'margin-left': '800px'})
-        ]),
+                                  'margin-left': '800px'}),
+            ]),
     )
 ])
 
@@ -144,7 +144,18 @@ def use_helper(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user_
     :param user_1_val, user_2_val (int): the user card value
     :param user_1_suit, user_2_suit (str): the user card suit
     """
-    pass
+
+    if house_val == 'ace':
+        house_val == 'A'
+
+    if user_1_val == 'ace':
+        user_1_val == 'A'
+
+    if user_2_val == 'ace':
+        user_2_val == 'A'
+
+
+
 
 
 def main():
