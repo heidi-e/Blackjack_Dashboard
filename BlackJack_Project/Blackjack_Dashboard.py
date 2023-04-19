@@ -158,8 +158,6 @@ def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user
 
 
 
-
-
 def main():
     # run the dashboard
     app.run_server(debug=True)
