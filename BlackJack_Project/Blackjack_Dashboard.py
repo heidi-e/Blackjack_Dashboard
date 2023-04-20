@@ -6,8 +6,6 @@ Final project dashboard
 
 """
 
-# card image source: https://code.google.com/archive/p/vector-playing-cards/
-
 from dash import Dash, dcc, html, Input, Output, ctx
 from dash import html
 from dash import dcc
@@ -33,7 +31,7 @@ new_deck = [{'label': 'A', 'value': 'ace'},
         {'label': 'Q', 'value': 'queen'},
         {'label': 'K', 'value': 'king'}]
 
-
+# background from link
 background = 'https://media.istockphoto.com/photos/green-abstract-glass-texture-background-or-pattern-creative-design-picture-id680008334?k=20&m=680008334&s=612x612&w=0&h=P5O3WExGj_3FZyh84I_wfpmNnECNQvy_r_8sBvEjt4M='
 
 # create the app
@@ -170,11 +168,13 @@ def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user
     # run optimal solution
     helper = hand.get_action(house_val)
 
+    # set button for game rules
     if n_click_1 % 2 > 0:
         msg_1 = '#### Sum as close to 21 as possible, without going over. ' \
               'Ace is worth 1 or 11. ' \
               'Face cards are 10.'
         return house_card_path, user_card_1_path, user_card_2_path, ' Your next play should be **{}** '.format(helper), msg_1, ''
+    # set button for helper guide
     elif n_click_2 % 2 > 0:
 
         msg_3 = ''' #### BOSS Guide
@@ -188,8 +188,6 @@ def update_card(house_val, house_suit, user_1_val, user_1_suit, user_2_val, user
         return house_card_path, user_card_1_path, user_card_2_path, ' Your next play should be **{}** '.format(helper), '', msg_3
     else:
         return house_card_path, user_card_1_path, user_card_2_path, ' Your next play should be **{}** '.format(helper), '', ''
-
-
 
 
 def main():
